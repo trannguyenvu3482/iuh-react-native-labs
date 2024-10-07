@@ -10,11 +10,9 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../constants";
-import UserContext from "../context/userContext";
 
 const Login = () => {
   const [input, setInput] = React.useState("");
-  const { setUser } = React.useContext(UserContext);
   const navigate = useNavigation();
 
   const handleStart = () => {
@@ -23,8 +21,9 @@ const Login = () => {
       return;
     }
 
-    setUser(input);
-    navigate.navigate("Home");
+    navigate.navigate("Home", {
+      user: input,
+    });
   };
 
   return (

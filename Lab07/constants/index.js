@@ -1,3 +1,5 @@
+import add from "../assets/add.png";
+import addjob from "../assets/addjob.png";
 import avatar from "../assets/avatar.png";
 import back from "../assets/back.png";
 import edit from "../assets/edit.png";
@@ -11,4 +13,6 @@ export const images = {
   search,
   back,
   edit,
+  addjob,
+  add,
 };

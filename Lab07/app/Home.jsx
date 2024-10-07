@@ -1,27 +1,61 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Checkbox } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../constants";
-import TaskContext from "../context/taskContext";
-import UserContext from "../context/userContext";
 
-const Home = () => {
-  const { user } = React.useContext(UserContext);
-  const {
-    tasks,
-    handleAddTask,
-    handleUpdateTask,
-    handleDeleteTask,
-    handleGetTask,
-    handleToggleTask,
-  } = React.useContext(TaskContext);
+const initialTasks = [
+  {
+    id: 1,
+    title: "Task 1",
+  },
+  {
+    id: 2,
+    title: "Task 2",
+  },
+];
+
+const Home = ({ route }) => {
+  const { user, tasks: prevTasks } = route.params || {};
   const [searchInput, setSearchInput] = React.useState("");
+  const [tasks, setTasks] = React.useState(prevTasks || initialTasks);
+  const [filteredTasks, setFilteredTasks] = React.useState(tasks);
+  const navigation = useNavigation();
+
+  const handleSearch = (text) => {
+    setSearchInput(text);
+
+    if (text == "") {
+      return;
+    }
+
+    const filteredTasks = tasks.filter((task) =>
+      task.title.toLowerCase().includes(text.toLowerCase())
+    );
+    setFilteredTasks(filteredTasks);
+  };
+
+  React.useEffect(() => {
+    setFilteredTasks(
+      searchInput === ""
+        ? tasks
+        : tasks.filter((task) => task.title.includes(searchInput))
+    );
+  }, [tasks, searchInput]);
+
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      // do something
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <SafeAreaView className="mx-7">
       <View className="flex flex-row items-center justify-between">
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
           <Image source={images.back} />
         </TouchableOpacity>
         <View className="flex flex-row items-center">
@@ -38,27 +72,54 @@ const Home = () => {
         <Image className="ml-4" source={images.search} />
         <TextInput
           value={searchInput}
-          onChangeText={(text) => setSearchInput(text)}
+          onChangeText={(text) => handleSearch(text)}
           className="ml-2 text-base"
           placeholder="Search"
         />
       </View>
       <View className="mt-8">
-        {tasks.map((task) => (
-          <TouchableOpacity
-            className="flex-row items-center justify-between bg-[#DEE1E6] rounded-xl py-2  px-4 my-2"
-            onPress={() => handleToggleTask(task.id)}
+        {filteredTasks.length === 0 && (
+          <Text className="text-2xl font-bold text-center">No task found</Text>
+        )}
+        {filteredTasks.map((task) => (
+          <View
+            className="flex-row items-center justify-between bg-[#DEE1E6] rounded-xl py-2 px-4 my-2"
             key={task.id}
           >
             <View className="flex-row items-center">
-              <Checkbox status={task.isCompleted ? "checked" : "unchecked"} />
+              <Checkbox status={"checked"} />
               <Text className="text-base font-bold">{task.title}</Text>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("Edit", {
+                  isEdit: true,
+                  task,
+                  user,
+                  setTasks,
+                  tasks,
+                })
+              }
+            >
               <Image className="ml-4" source={images.edit} />
             </TouchableOpacity>
-          </TouchableOpacity>
+          </View>
         ))}
+      </View>
+      <View className="justify-center items-center">
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("Edit", {
+              isEdit: false,
+              user,
+              setTasks,
+              tasks,
+            })
+          }
+          className="flex-row items-center justify-center bg-[#00BDD6] rounded-full mt-4 w-[70px] h-[70px]"
+        >
+          <Image source={images.add} />
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
