@@ -13,10 +13,12 @@ import { data2, images } from "../constants/";
 
 const CartItem = ({ item }) => {
   return (
-    <TouchableOpacity className="flex-1  w-[155px] bg-gray-300 border">
+    <TouchableOpacity className="flex-1 w-[155px] bg-gray-300 border">
       <Image source={item.img} />
       <View className="px-4 mt-2">
         <Text>Cáp chuyển từ Cổng USB sang PS2</Text>
+
+        <Text>Giá: 99000đ</Text>
       </View>
     </TouchableOpacity>
   );
