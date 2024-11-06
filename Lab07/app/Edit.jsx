@@ -8,6 +8,7 @@ export const Edit = ({ route }) => {
   const { isEdit, user, task, tasks, setTasks } = route.params;
   const [jobName, setJobName] = React.useState(isEdit ? task.title : "");
   const navigate = useNavigation();
+
   const handleSubmit = () => {
     if (isEdit) {
       const updatedTask = { ...task, title: jobName };
