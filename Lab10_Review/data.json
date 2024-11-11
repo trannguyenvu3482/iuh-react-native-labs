@@ -1,0 +1,45 @@
+[
+    {
+        "id": 1,
+        "name": "Pinarello",
+        "price": 1800,
+        "image": "https://i.ibb.co/TKW5NZn/5c0d8c0f67fc78f523516fd7768fec28.png",
+        "type": "Mountain"
+    },
+    {
+        "id": 2,
+        "name": "Pina Mountai",
+        "price": 1800,
+        "image": "https://i.ibb.co/0XWFhhY/11168d8e6671f151053b8a6c8424a1a8.png",
+        "type": "Mountain"
+    },
+    {
+        "id": 3,
+        "name": "Pina Bike",
+        "price": 1500,  
+        "image": "https://i.ibb.co/7z0mC9D/68c70d4381b662e07d65fdb7c3846000.png",
+        "type": "Roadbike"
+
+    },
+    {
+        "id": 4,
+        "name": "Pinarello",
+        "price": 1900,
+        "image": "https://i.ibb.co/0Bwxg01/251a5a94adb31c5f3a0d6caf10fae43b.png",
+        "type": "Roadbike"
+    },
+    {
+        "id": 5,
+        "name": "Pinarello",
+        "price": 2700,
+        "image": "https://i.ibb.co/7z0mC9D/68c70d4381b662e07d65fdb7c3846000.png",
+        "type": "Roadbike"
+    },
+    {
+        "id": 6,
+        "name": "Pinarello",
+        "price": 1350,
+        "image": "https://i.ibb.co/0XWFhhY/11168d8e6671f151053b8a6c8424a1a8.png",
+        "type": "Mountain"
+    }
+]
